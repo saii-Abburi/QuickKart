@@ -49,7 +49,7 @@ const ProductCard = ({ product  }) => {
   };
 
   const addToCart = async (product) => {
-    const endpoint = "http://localhost:3000/app/v1/cart/add";
+    const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/add`;
     try {
       await axios.post(endpoint, {
         userId,
@@ -67,7 +67,7 @@ const ProductCard = ({ product  }) => {
     }
     if (savedProductIds.includes(productId)) {
       const res = await axios.delete(
-        `http://localhost:3000/app/v1/users/${userId}/save/${productId}`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${userId}/save/${productId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -75,7 +75,7 @@ const ProductCard = ({ product  }) => {
       fetchSaved();
     } else {
       const res = await axios.post(
-        `http://localhost:3000/app/v1/users/${userId}/save/${productId}`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${userId}/save/${productId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -109,7 +109,7 @@ const ProductCard = ({ product  }) => {
   };
   const fetchSaved = async () => {
     const res = await axios.get(
-      `http://localhost:3000/app/v1/users/${userId}/save`,
+      `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${userId}/save`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

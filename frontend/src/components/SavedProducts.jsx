@@ -15,7 +15,7 @@ const SavedProducts = () => {
     const fetchSaved = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/app/v1/users/${userId}/save`,
+          `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${userId}/save`,
           {
             headers: { authorization: `Bearer ${token}` },
           }

@@ -19,7 +19,7 @@ const ProductDetail = () => {
 
   const fetchProduct = async () => {
     try {
-      const endpoint = `http://localhost:3000/app/v1/products/${id}`;
+      const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/products/${id}`;
       const res = await axios.get(endpoint);
       const fetchedProduct = res.data?.product?.[0];
       setProduct(fetchedProduct);
@@ -29,7 +29,7 @@ const ProductDetail = () => {
     }
   };
   const addToCart = async (product) => {
-    const endpoint = "http://localhost:3000/app/v1/cart/add";
+    const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/add`;
     if(!userId){
       window.location = '/login'
     }

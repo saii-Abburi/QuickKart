@@ -25,7 +25,7 @@ const ReviewsTab = ({ productId, reviews, fetchProduct }) => {
     try {
       setLoading(true);
       await axios.patch(
-        `http://localhost:3000/app/v1/products/${productId}/reviews`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/products/${productId}/reviews`,
         { comment, rating, userId: currentUser._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -42,7 +42,7 @@ const ReviewsTab = ({ productId, reviews, fetchProduct }) => {
   const handleDeleteReview = async (reviewId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/app/v1/products/${productId}/reviews/${reviewId}`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/products/${productId}/reviews/${reviewId}`,
         {
           data: { userId: currentUser._id },
           headers: { Authorization: `Bearer ${token}` },

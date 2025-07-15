@@ -4,7 +4,7 @@ const fetchUserDetails = async () => {
   const token = window.localStorage.getItem('token');
   const decoded = jwtDecode(token);
   try {
-    const endpoint = `http://localhost:3000/app/v1/users/${decoded.userId}`;
+    const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${decoded.userId}`;
     const response = await axios.get(endpoint);
     const userData = response.data.user[0];
     return userData;

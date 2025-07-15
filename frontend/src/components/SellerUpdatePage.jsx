@@ -8,7 +8,7 @@ const SellerUpdatePage = () => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/app/v1/products/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_HOST_STRING}/app/v1/products/${id}`).then((res) => {
       setProduct(res.data.product);
     });
   }, [id]);

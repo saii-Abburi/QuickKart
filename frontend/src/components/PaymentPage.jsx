@@ -35,7 +35,7 @@ const PaymentPage = () => {
       const token = window.localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:3000/app/v1/orders/place",
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/orders/place`,
         {
           userId,
           items,

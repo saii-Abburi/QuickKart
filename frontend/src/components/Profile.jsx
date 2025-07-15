@@ -35,7 +35,7 @@ const Profile = () => {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/app/v1/orders/user/${decoded.userId}`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/orders/user/${decoded.userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -49,7 +49,7 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     try {
-      const endpoint = `http://localhost:3000/app/v1/users/${decoded.userId}`;
+      const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${decoded.userId}`;
       await axios.patch(endpoint, formData);
       setStatus("✅ User updated successfully!");
     } catch (error) {
@@ -64,7 +64,7 @@ const Profile = () => {
     );
     if (!confirmDelete) return;
     try {
-      const endpoint = `http://localhost:3000/app/v1/users/${decoded.userId}`;
+      const endpoint = `${import.meta.env.VITE_HOST_STRING}/app/v1/users/${decoded.userId}`;
       await axios.delete(endpoint);
       localStorage.clear();
       setUser(null);

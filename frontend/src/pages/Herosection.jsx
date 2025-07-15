@@ -5,7 +5,6 @@ import Categories from "../components/categories";
 import Contact from "../components/Contact";
 import FaqSection from "../components/FaqSection";
 import FastDelivery from "../components/FastDelivery";
-import ProductCard from "../components/ProductCard";
 
 const Herosection = () => {
   return (

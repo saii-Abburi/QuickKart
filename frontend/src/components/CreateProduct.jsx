@@ -57,8 +57,8 @@ const CreateProductForm = ({ initialData = null, isEdit = false, onSuccess }) =>
     try {
       const payload = { ...formData, sellerId: userId };
       const url = isEdit
-        ? `http://localhost:3000/app/v1/products/${initialData._id}`
-        : "http://localhost:3000/app/v1/products";
+        ? `${import.meta.env.VITE_HOST_STRING}/app/v1/products/${initialData._id}`
+        : `${import.meta.env.VITE_HOST_STRING}/app/v1/products`;
 
       const method = isEdit ? "patch" : "post";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
-import Toast from "./toast";
+import Toast from "./Toast";
 
 const SignIn = () => {
   const [signIn, setSignIn] = useState(true);
@@ -13,7 +13,6 @@ const SignIn = () => {
     exit: { opacity: 0, x: -100 },
   };
   const [toast, setToast] = useState(null);
-
   const showToast = (msg, type = "success") => {
     setToast({ message: msg, type });
   };
@@ -26,8 +25,8 @@ const SignIn = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const endpoint = signIn
-      ? "http://localhost:3000/app/v1/users/login"
-      : "http://localhost:3000/app/v1/users";
+      ? `${import.meta.env.VITE_HOST_STRING}/app/v1/users/login`
+      : `${import.meta.env.VITE_HOST_STRING}/app/v1/users`;
     try {
       const res = await axios.post(endpoint, formData);
       console.log(res);
@@ -55,7 +54,7 @@ const SignIn = () => {
     }
   };
   const addToCart = async (product) => {
-    const endpoint = "http://localhost:3000/app/v1/cart/add";
+    const endpoint = `${import.meta.env.HOST_STRING}/app/v1/cart/add`;
     try {
       const res = await axios.post(endpoint, {
         userId,

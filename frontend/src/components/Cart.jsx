@@ -21,7 +21,7 @@ const Cart = () => {
 
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/app/v1/cart/${userId}`
+          `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/${userId}`
         );
         
         setCartData(data.cart || []);
@@ -38,7 +38,7 @@ const Cart = () => {
 
   const handleRemoveItem = async (productId) => {
     try {
-      await axios.delete(`http://localhost:3000/app/v1/cart/remove`, {
+      await axios.delete(`${import.meta.env.VITE_HOST_STRING}/app/v1/cart/remove`, {
         data: { userId, productId },
       });
       showToast("item Removed from the cart", "success");
@@ -64,7 +64,7 @@ const Cart = () => {
     );
 
     try {
-      await axios.patch("http://localhost:3000/app/v1/cart/update-quantity", {
+      await axios.patch(`${import.meta.env.VITE_HOST_STRING}/app/v1/cart/update-quantity`, {
         userId,
         productId,
         quantity: updatedItem.quantity,
@@ -80,7 +80,7 @@ const Cart = () => {
 
     try {
       const response = await axios.delete(
-        "http://localhost:3000/app/v1/cart/clear",
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/clear`,
         {
           data: { userId: localStorage.getItem("userId") },
         }

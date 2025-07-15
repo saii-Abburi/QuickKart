@@ -17,7 +17,7 @@ const SellerProductsPage = () => {
   const fetchProducts = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/app/v1/products/seller/${sellerId}`,
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/products/seller/${sellerId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setProducts(res.data.products || []);
@@ -33,7 +33,7 @@ const SellerProductsPage = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:3000/app/v1/products/${productId}`, {
+      await axios.delete(`${import.meta.env.VITE_HOST_STRING}/app/v1/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Product deleted successfully");
