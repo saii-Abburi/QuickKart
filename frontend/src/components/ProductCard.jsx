@@ -226,7 +226,7 @@ const ProductCard = ({ product  }) => {
               <X className="w-5 h-5 text-gray-800 cursor-pointer" />
             </button>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8  max-sm:h-[70vh] max-sm:overflow-scroll scroll">
               <div className="flex flex-col gap-6">
                 <img
                   src={imgSrc}

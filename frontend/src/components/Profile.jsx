@@ -97,7 +97,7 @@ const Profile = () => {
             className="w-16 h-16 rounded-full border shadow-sm"
           />
           <div>
-            <h2 className="text-3xl font-bold text-purple-700">
+            <h2 className="text-2xl font-bold text-purple-700">
               {formData.name}
             </h2>
             <p className="text-gray-500">Welcome back 👋</p>

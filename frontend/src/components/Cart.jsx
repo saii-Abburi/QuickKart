@@ -23,7 +23,7 @@ const Cart = () => {
         const { data } = await axios.get(
           `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/${userId}`
         );
-        
+
         setCartData(data.cart || []);
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -38,9 +38,12 @@ const Cart = () => {
 
   const handleRemoveItem = async (productId) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_HOST_STRING}/app/v1/cart/remove`, {
-        data: { userId, productId },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/remove`,
+        {
+          data: { userId, productId },
+        }
+      );
       showToast("item Removed from the cart", "success");
       setCartData((prev) =>
         prev.filter((item) => item.productId._id !== productId)
@@ -64,11 +67,14 @@ const Cart = () => {
     );
 
     try {
-      await axios.patch(`${import.meta.env.VITE_HOST_STRING}/app/v1/cart/update-quantity`, {
-        userId,
-        productId,
-        quantity: updatedItem.quantity,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_HOST_STRING}/app/v1/cart/update-quantity`,
+        {
+          userId,
+          productId,
+          quantity: updatedItem.quantity,
+        }
+      );
       console.log("✅ Quantity updated in backend");
     } catch (error) {
       console.error("❌ Failed to update quantity", error);
@@ -129,12 +135,9 @@ const Cart = () => {
     );
   }
 
-
-
-
-  const handlePayment = ()=>{
-      navigate("/payment", { state: { cartItems:cartData } });
-  }
+  const handlePayment = () => {
+    navigate("/payment", { state: { cartItems: cartData } });
+  };
 
   return (
     <section className="min-h-screen bg-gradient-to-br font-[Roboto] from-white to-blue-50 flex items-center justify-center p-6">
@@ -152,60 +155,66 @@ const Cart = () => {
         {cartData.map((item) => (
           <div
             key={item.productId._id}
-            className="flex items-center justify-between py-6 "
-          > 
-            <div className="flex gap-4 items-center">
+            className="flex flex-col sm:flex-row sm:items-center justify-between py-4 gap-4 border-b"
+          >
+            {/* ✅ IMAGE + PRODUCT INFO */}
+            <div className="flex gap-4 items-center justify-center">
               <img
                 src={item.productId.images?.[0]}
                 alt={item.productId.name}
-                className="w-14 h-14 rounded object-cover"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded object-cover"
               />
               <div>
-                <h3 className="font-bold text-gray-800 text-lg">
+                <h3 className="font-semibold text-gray-800 text-base sm:text-lg">
                   {item.productId.name}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs sm:text-sm text-gray-500">
                   {item.productId.weight}kg
                 </p>
               </div>
             </div>
-            <div className="flex items-center  rounded-full overflow-hidden">
-              <button
-                className="px-3 py-3  cursor-pointer  bg-gray-100 rounded-full hover:bg-gray-200"
-                onClick={() => handleQuantity(item.productId._id, 1)}
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-              <span className="px-4 text-sm font-bold">{item.quantity}</span>
-              <button
-                className="px-3 py-3 cursor-pointer rounded-full bg-gray-100 hover:bg-gray-200"
-                onClick={() => handleQuantity(item.productId._id, -1)}
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="flex items-center gap-4">
-              <div className="text-right text-sm text-red-500 flex flex-col  items-end">
-                <p className="text-lg font-semibold text-gray-800">
-                  ₹{item.productId.discountedPrice.toFixed(2) * item.quantity}
-                </p>
-                <button className="text-blue-500 hover:underline">
-                  Save for later
-                </button>
+            {/* ✅ QUANTITY CONTROLS */}
+            <div className="flex items-center justify-center sm:justify-center sm:gap-4">
+              <div className="flex items-center rounded-full overflow-hidden border">
                 <button
-                  onClick={() => handleRemoveItem(item.productId._id)}
-                  className="hover:underline"
+                  className="px-3 py-2 sm:px-4 sm:py-3 bg-gray-100 hover:bg-gray-200"
+                  onClick={() => handleQuantity(item.productId._id, -1)}
                 >
-                  Remove
+                  <Minus className="w-4 h-4" />
+                </button>
+                <span className="px-4 text-sm sm:text-base font-bold">
+                  {item.quantity}
+                </span>
+                <button
+                  className="px-3 py-2 sm:px-4 sm:py-3 bg-gray-100 hover:bg-gray-200"
+                  onClick={() => handleQuantity(item.productId._id, 1)}
+                >
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
+            </div>
+
+            {/* ✅ PRICE & ACTIONS */}
+            <div className="flex flex-col items-end sm:items-end text-right gap-1">
+              <p className="text-base sm:text-lg font-semibold text-gray-800">
+                ₹{(item.productId.discountedPrice * item.quantity).toFixed(2)}
+              </p>
+              <button className="text-blue-500 text-xs sm:text-sm hover:underline">
+                Save for later
+              </button>
+              <button
+                onClick={() => handleRemoveItem(item.productId._id)}
+                className="text-xs sm:text-sm text-red-500 hover:underline"
+              >
+                Remove
+              </button>
             </div>
           </div>
         ))}
 
         {/* Subtotal */}
-        <div className="mt-6 pt-6 border-t flex justify-end gap-6 items-end">
+        <div className="mt-6 pt-6  flex justify-end gap-6 items-end">
           <div>
             <p className="text-gray-600 text-sm">Sub-Total</p>
             <p className="text-gray-400 text-xs">{cartData.length} items</p>
@@ -216,7 +225,10 @@ const Cart = () => {
         </div>
 
         {/* Checkout */}
-        <button className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-full text-lg font-medium transition" onClick={()=>handlePayment()}>
+        <button
+          className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-full text-lg font-medium transition"
+          onClick={() => handlePayment()}
+        >
           Checkout
         </button>
 

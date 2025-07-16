@@ -82,9 +82,9 @@ const SignIn = () => {
   }, [isLoggedIn]);
 
   return (
-    <section className="h-screen bg-white grid place-items-center px-4">
+    <section className="h-max bg-white grid place-items-center px-4 ">
       <div
-        className={`w-full max-w-4xl h-[500px] bg-gray-50 rounded-2xl shadow-lg overflow-hidden 
+        className={`w-full max-w-4xl  bg-gray-50 rounded-2xl shadow-lg overflow-hidden max-sm:flex-col max-sm:h-max
         flex ${
           !signIn ? "flex-row-reverse" : "flex-row"
         } transition-all duration-500`}
